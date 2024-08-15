@@ -6,11 +6,18 @@ const Header = ({ course }) => (
 )
 
 
-
-const Content = ({part, exercises}) => (
+const Part = ({part, exercises}) => (
   <p>
     {part}: {exercises}
   </p>
+)
+
+const Content = (props) => (
+  <div>
+    <Part part={props.parts[0]} exercises={props.exercises[0]} />
+    <Part part={props.parts[1]} exercises={props.exercises[1]} />
+    <Part part={props.parts[2]} exercises={props.exercises[2]} />
+  </div>
 )
 
 const Total = (props) => (
@@ -29,9 +36,7 @@ const App = () => {
   return (
     <div>
       <Header course={course} />
-      <Content part={part1} exercises={exercises1} />
-      <Content part={part2} exercises={exercises2} />
-      <Content part={part3} exercises={exercises3} />
+      <Content parts = {[part1, part2, part3]} exercises={[exercises1, exercises2, exercises3]} />
       <Total exercises={[exercises1, exercises2, exercises3]} />
     </div>
   )
@@ -42,9 +47,14 @@ Header.propTypes = {
   course: PropTypes.string.isRequired
 };
 
-Content.propTypes = {
+Part.propTypes = {
   part: PropTypes.string.isRequired,
   exercises: PropTypes.number.isRequired
+};
+
+Content.propTypes = {
+  parts: PropTypes.array.isRequired,
+  exercises: PropTypes.array.isRequired
 };
 
 Total.propTypes = {
