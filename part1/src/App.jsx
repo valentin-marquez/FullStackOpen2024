@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 
 const Header = ({ course }) => (
-  <h1>{course}</h1>
+  <h1>{course.name}</h1>
 )
 
 const Part = ({part}) => (
@@ -11,68 +11,66 @@ const Part = ({part}) => (
   </p>
 )
 
-const Content = ({ parts }) => (
-  <div>
-    {parts.map((part, index) => (
-      <Part key={index} part={part} />
-    ))}
-  </div>
-);
+const Content = ({ course }) => {
+  return (
+    <div>
+      {course.parts.map(part => <Part key={part.name} part={part} />)}
+    </div>
+  );
+}
 
-const Total = ({ parts }) => {
+const Total = ({ course }) => {
   return (
     <p>
-      <strong>Number of exercises: {parts.reduce((acc, part) => acc + part.exercises, 0)}</strong>
+      <strong>Number of exercises: {course.parts.reduce((sum, part) => sum + part.exercises, 0)}</strong>
     </p>
   );
 }
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const parts = [
-    {
-      name: 'Fundamentals of React',
-      exercises: 10
-    },
-    {
-      name: 'Using props to pass data',
-      exercises: 7
-    },
-    {
-      name: 'State of a component',
-      exercises: 14
-    }
-  ]
-
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
+  }
 
   return (
     <div>
       <Header course={course} />
-      <Content parts={parts} />
-      <Total parts={parts} />
+      <Content course={course} />
+      <Total course={course} />
     </div>
     )
 }
 
 // Define prop types
 Header.propTypes = {
-  course: PropTypes.string.isRequired
-};
+  course: PropTypes.object.isRequired
+}
 
 Part.propTypes = {
-  part: PropTypes.string.isRequired,
-  exercises: PropTypes.number.isRequired
-};
+  part: PropTypes.object.isRequired
+}
 
 Content.propTypes = {
-  parts: PropTypes.array.isRequired,
-  exercises: PropTypes.array.isRequired
-};
+  course: PropTypes.object.isRequired
+}
 
 Total.propTypes = {
-  parts: PropTypes.array.isRequired,
-  exercises: PropTypes.array.isRequired
-};
+  course: PropTypes.object.isRequired
+}
 
 
 export default App
