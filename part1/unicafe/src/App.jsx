@@ -16,7 +16,6 @@ const Statistics = (props) => {
 }
 
 const App = () => {
-  // guarda los clics de cada botón en su propio estado
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
@@ -36,14 +35,11 @@ const App = () => {
       <button onClick={() => setBad(bad + 1)}>
         bad
       </button>
-      <Statistics
-        good={good}
-        neutral={neutral}
-        bad={bad}
-        all={all}
-        average={average}
-        positive={positive}
-      />
+      {
+        all === 0
+          ? <p>No feedback given</p>
+          : <Statistics good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive} />
+      }
     </div>
   )
 }
