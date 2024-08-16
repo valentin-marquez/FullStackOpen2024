@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const StatisticLine = (props) => {
   const { text, value } = props
@@ -56,6 +57,26 @@ const App = () => {
       }
     </div>
   )
+}
+
+// Define prop types
+StatisticLine.propTypes = {
+  text: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired
+}
+
+Statistics.propTypes = {
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  all: PropTypes.number.isRequired,
+  average: PropTypes.number.isRequired,
+  positive: PropTypes.number.isRequired
+}
+
+Button.propTypes = {
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default App
